@@ -7,7 +7,7 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 public class ServerListPanel extends JPanel implements ActionListener {
-    private static final String[] tempFile = {"test server 1", "test server 2", "test server 3", "test server 4", "test server 5"};
+    public static final String[] tempFile = {"test server 1", "test server 2", "test server 3", "test server 4", "test server 5"};
     private static final ImageIcon tempIcon = new ImageIcon("src/main/resources/server-icon.png");
 
     ArrayList<ServerListButton> serverList = new ArrayList<>();
@@ -26,7 +26,10 @@ public class ServerListPanel extends JPanel implements ActionListener {
     private void ReloadServersFromFile() {
         serverList.clear();
         for (String serverName : tempFile) {
-            serverList.add(new ServerListButton(serverName, tempIcon, this));
+            Image ogImage = tempIcon.getImage();
+            Image scaledImage = ogImage.getScaledInstance(32, 32, Image.SCALE_FAST);
+            ImageIcon scaledIcon = new ImageIcon(scaledImage);
+            serverList.add(new ServerListButton(serverName, scaledIcon, this));
         }
     }
 
