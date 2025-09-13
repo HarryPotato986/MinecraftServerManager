@@ -13,6 +13,8 @@ public class SettingsPanel extends JPanel {
         this.setLayout(new BorderLayout());
 
         tabbedPane = new JTabbedPane();
+        tabbedPane.setBackground(new Color(45, 45, 45));
+        tabbedPane.setForeground(new Color(45, 45, 45));
         tabbedPane.setUI(new BasicTabbedPaneUI() {
             @Override
             protected int calculateTabAreaHeight(int tabPlacement, int horizRunCount, int maxTabHeight) {
@@ -20,14 +22,11 @@ public class SettingsPanel extends JPanel {
             }
         });
 
-
-        //tabbedPane.addTab("bruh", new JLabel("super bruh"));
-        //tabbedPane.addTab("bruh 2", new JLabel("super bruh 2"));
-        tabbedPane.addTab("bruh", new JPanel(new BorderLayout()));
-        tabbedPane.addTab("bruh 2", new JPanel(new BorderLayout()));
-
-        tabbedPane.setSelectedIndex(1);
-
+        ReloadServersFromFile();
+        JPanel panel = (JPanel) tabbedPane.getComponentAt(1);
+        JLabel label = new JLabel("it works");
+        label.setForeground(Color.white);
+        panel.add(label);
 
         this.add(tabbedPane, BorderLayout.CENTER);
     }
@@ -35,10 +34,13 @@ public class SettingsPanel extends JPanel {
     private void ReloadServersFromFile() {
         tabbedPane.removeAll();
         for (String serverName : ServerListPanel.tempFile) {
-            /*
-            -make a new panel for each folder
-            -make a new tab for each folder, passing in serverName and the new panel
-             */
+            JPanel tempPanel = new JPanel();
+            tempPanel.setBackground(new Color(45, 45, 45));
+            tabbedPane.addTab(serverName, tempPanel);
         }
+    }
+
+    public void changeTab(String tabName) {
+        tabbedPane.setSelectedIndex(tabbedPane.indexOfTab(tabName));
     }
 }
